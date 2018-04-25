@@ -55,4 +55,14 @@ class ImageUtil {
         // Return the new image
         return imageWithNewSize
     }
+    
+    static func pixelData(_ image: NSImage) -> [UInt8]? {
+        let dataSize = image.size.width * image.size.height * 4
+        var pixelData = [UInt8](repeating: 0, count: Int(dataSize))
+        let colorSpace = CGColorSpaceCreateDeviceRGB()
+        let context = CGContext(data: &pixelData, width: Int(image.size.width), height: Int(image.size.height), bitsPerComponent: 8, bytesPerRow: 4 * Int(image.size.width), space: colorSpace, bitmapInfo: CGImageAlphaInfo.noneSkipLast.rawValue)
+        let cgImage = image.cgImage(forProposedRect: <#T##UnsafeMutablePointer<NSRect>?#>, context: <#T##NSGraphicsContext?#>, hints: <#T##[NSImageRep.HintKey : Any]?#>)
+        context?.draw(cgImage, in: CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height))
+        return pixelData
+    }
 }

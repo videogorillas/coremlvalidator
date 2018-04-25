@@ -10,6 +10,7 @@ import Foundation
 import CoreML
 import Cocoa
 import AppKit
+import Vision
 
 let model = contexter()
 let size = CGSize(width: 256, height: 256)
